@@ -18,7 +18,7 @@ public class Account {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.balance = balance;
-        if (accountType == "Checking") {
+        if (accountType.equalsIgnoreCase("Checking")){
             monthlyInterestRate = 1.0f;
         }
     }
@@ -37,21 +37,21 @@ public class Account {
 
     @Override
     public String toString() {
-        if (accountType == "Checking") {
-            if (monthlyFee == 0.0f) {
+        if (accountType.equalsIgnoreCase("Checking")) {
+            if (Float.compare(monthlyFee, 0.0f)==0) {
                 return "No fee checking account #" + accountNumber;
             } else {
                 return "Checking account #" + accountNumber;
             }
         } else {
             if (monthlyInterestRate > 1.01) {
-                if (monthlyFee == 0.0f) {
+                if (Float.compare(monthlyFee, 0.0f)==0) {
                     return "High interest no fee savings account #" + accountNumber;
                 } else {
                     return "High interest savings account #" + accountNumber;
                 }
             } else {
-                if (monthlyFee == 0.0f) {
+                if (Float.compare(monthlyFee, 0.0f)==0) {
                     return "No fee savings account #" + accountNumber;
                 } else {
                     return "Savings account #" + accountNumber;
@@ -61,11 +61,12 @@ public class Account {
     }
 
     public void deposit(float amount) {
-        balance += amount;
+        this.balance += amount;
     }
 
     public void withdraw(float amount) {
-        balance -= amount;
+    	if(amount<100 && balance>=0)
+        this.balance -= amount;
     }
 
     public float getMonthlyInterestRate() {
@@ -73,7 +74,7 @@ public class Account {
     }
 
     public void setMonthlyInterestRate(float monthlyInterestRate) {
-        this.monthlyInterestRate = monthlyInterestRate;
+        Account.monthlyInterestRate = monthlyInterestRate;
     }
 
     public float getMonthlyFee() {
@@ -81,7 +82,7 @@ public class Account {
     }
 
     public void setMonthlyFee(float monthlyFee) {
-        this.monthlyFee = monthlyFee;
+        Account.monthlyFee = monthlyFee;
     }
 
     public String getAccountNumber() {

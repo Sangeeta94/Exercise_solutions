@@ -24,14 +24,28 @@ public class Bank {
     }
 
     public void depositToAccount(String accountNumber, float amount) {
+    	if(null!=getAccount(accountNumber))
         getAccount(accountNumber).deposit(amount);
     }
 
     public void withdrawFromAccount(String accountNumber, float amount) {
+    	if(null!=getAccount(accountNumber))
         getAccount(accountNumber).withdraw(amount);
     }
 
     public int numAccounts() {
         return accountMap.size();
+    }
+    
+    public String checkProfitOrLoss() {
+    	float totalValue=0.0f;
+    	for(Account account:accountMap.values()) {
+    		totalValue=account.valueNextMonth();
+    	}
+    	if(totalValue>0) {
+    		return "Profit for next month";
+    	}
+    	
+    	return "loss for next month";
     }
 }
